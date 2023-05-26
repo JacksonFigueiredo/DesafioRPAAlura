@@ -9,6 +9,8 @@ namespace RPA_Alura.Repository.Interfaces
 {
     public interface ICursoRepository
     {
-        void Adicionar(Curso curso);
+        public Task AdicionarAsync(Curso curso);
+        public Task<IEnumerable<Curso>> GetAllAsync();
+ 
     }
 }

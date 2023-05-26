@@ -19,7 +19,7 @@ namespace RPA_Alura.Repository.Services
             _context = context;
         }
 
-        public void Adicionar(Curso curso)
+        public async Task AdicionarAsync(Curso curso)
         {
             if (curso == null)
             {
@@ -27,7 +27,12 @@ namespace RPA_Alura.Repository.Services
             }
 
             _context.Cursos.Add(curso);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Curso>> GetAllAsync()
+        {
+            return await _context.Cursos.ToListAsync();
         }
     }
 }

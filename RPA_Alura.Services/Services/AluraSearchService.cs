@@ -15,7 +15,7 @@ namespace RPA_Alura.Services.Services
             _driver = driver;
         }
 
-        public void RealizarBusca(string termo)
+        public async Task RealizarBusca(string termo)
         {
             _driver.Navigate().GoToUrl("https://www.alura.com.br/");
 
@@ -25,7 +25,7 @@ namespace RPA_Alura.Services.Services
 
             var resultados = _driver.FindElements(By.ClassName("busca-resultado"));
 
-            foreach (var resultado in resultados)
+            foreach (var resultado in resultados.ToList())
             {
                 try
                 {
@@ -35,7 +35,7 @@ namespace RPA_Alura.Services.Services
                         Descricao = resultado.FindElement(By.ClassName("busca-resultado-descricao")).Text
                     };
 
-                    _cursoRepository.Adicionar(curso);
+                    await _cursoRepository.AdicionarAsync(curso);
                 }
                 catch (NoSuchElementException ex)
                 {

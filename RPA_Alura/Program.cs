@@ -11,7 +11,7 @@ namespace RPA_Alura
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
@@ -29,7 +29,15 @@ namespace RPA_Alura
                 dbContext.Database.EnsureCreated();
 
                 var aluraSearchService = container.GetInstance<AluraSearchService>();
-                aluraSearchService.RealizarBusca("C#"); // Realizar busca com o termo desejado
+
+                await aluraSearchService.RealizarBusca("C#");
+            }
+
+            // Exibir os items apos a localizacao
+            var cursos = container.GetInstance<ICursoRepository>();
+            foreach (var curso in await cursos.GetAllAsync())
+            {
+                Console.WriteLine(curso);
             }
         }
     }

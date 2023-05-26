@@ -29,15 +29,16 @@ namespace RPA_Alura
                 dbContext.Database.EnsureCreated();
 
                 var aluraSearchService = container.GetInstance<AluraSearchService>();
-
                 await aluraSearchService.RealizarBusca("C#");
-            }
 
-            // Exibir os items apos a localizacao
-            var cursos = container.GetInstance<ICursoRepository>();
-            foreach (var curso in await cursos.GetAllAsync())
-            {
-                Console.WriteLine(curso);
+                var cursos = container.GetInstance<ICursoRepository>();
+                foreach (var curso in await cursos.ObterTodosAsync())
+                {
+                    Console.WriteLine($"{curso.Titulo} - {curso.Descricao}");
+                    Console.WriteLine();
+                }
+
+                Console.ReadKey();
             }
         }
     }

@@ -2,11 +2,6 @@
 using RPA_Alura.Domain.Models;
 using RPA_Alura.Repository.Data;
 using RPA_Alura.Repository.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPA_Alura.Repository.Services
 {
@@ -30,7 +25,7 @@ namespace RPA_Alura.Repository.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Curso>> GetAllAsync()
+        public async Task<IEnumerable<Curso>> ObterTodosAsync()
         {
             return await _context.Cursos.ToListAsync();
         }
